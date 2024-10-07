@@ -30,7 +30,6 @@ DEVICE_PACKAGE_OVERLAYS += device/google/lynx/lynx/overlay
 
 include device/google/lynx/audio/lynx/audio-tables.mk
 include device/google/gs201/device-shipping-common.mk
-include hardware/google/pixel/vibrator/cs40l26/device.mk
 include device/google/gs-common/touch/gti/predump_gti.mk
 include device/google/gs-common/wlan/dump.mk
 
@@ -86,6 +85,9 @@ PRODUCT_PACKAGES += \
 	Tag \
 	android.hardware.nfc-service.st \
 	NfcOverlayLynx
+
+# modem_svc_sit daemon
+PRODUCT_PACKAGES += modem_svc_sit
 
 # SecureElement
 PRODUCT_PACKAGES += \
