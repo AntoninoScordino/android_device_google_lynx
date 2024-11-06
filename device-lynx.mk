@@ -160,8 +160,8 @@ endif
 # Vibrator HAL
 $(call soong_config_set,haptics,kernel_ver,v$(subst .,_,$(TARGET_LINUX_KERNEL_VERSION)))
 ADAPTIVE_HAPTICS_FEATURE := adaptive_haptics_v1
+ACTUATOR_MODEL := legacy_zlra_actuator
 PRODUCT_VENDOR_PROPERTIES += \
-	ro.vendor.vibrator.hal.supported_primitives=243 \
 	ro.vendor.vibrator.hal.f0.comp.enabled=1 \
 	ro.vendor.vibrator.hal.redc.comp.enabled=0 \
 	persist.vendor.vibrator.hal.context.enable=false \
@@ -170,20 +170,36 @@ PRODUCT_VENDOR_PROPERTIES += \
 	persist.vendor.vibrator.hal.context.cooldowntime=1600 \
 	persist.vendor.vibrator.hal.context.settlingtime=5000
 
+# Override Output Distortion Gain
+PRODUCT_VENDOR_PROPERTIES += \
+    vendor.audio.hapticgenerator.distortion.output.gain=0.29
+
 # Trusty liboemcrypto.so
 PRODUCT_SOONG_NAMESPACES += vendor/google_devices/lynx/prebuilts
 
-# GPS xml
+# Location
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
+    PRODUCT_COPY_FILES += \
+        device/google/lynx/location/lhd.conf.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/lhd.conf \
+        device/google/lynx/location/scd.conf.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/scd.conf
+    ifneq (,$(filter 6.1, $(TARGET_LINUX_KERNEL_VERSION)))
         PRODUCT_COPY_FILES += \
-                device/google/lynx/location/gps.xml.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/gps.xml \
-                device/google/lynx/location/lhd.conf.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/lhd.conf \
-                device/google/lynx/location/scd.conf.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/scd.conf
+            device/google/lynx/location/gps.6.1.xml.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/gps.xml
+    else
+        PRODUCT_COPY_FILES += \
+            device/google/lynx/location/gps.xml.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/gps.xml
+    endif
 else
+    PRODUCT_COPY_FILES += \
+        device/google/lynx/location/lhd_user.conf.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/lhd.conf \
+        device/google/lynx/location/scd_user.conf.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/scd.conf
+    ifneq (,$(filter 6.1, $(TARGET_LINUX_KERNEL_VERSION)))
         PRODUCT_COPY_FILES += \
-                device/google/lynx/location/gps_user.xml.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/gps.xml \
-                device/google/lynx/location/lhd_user.conf.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/lhd.conf \
-                device/google/lynx/location/scd_user.conf.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/scd.conf
+            device/google/lynx/location/gps_user.6.1.xml.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/gps.xml
+    else
+        PRODUCT_COPY_FILES += \
+            device/google/lynx/location/gps_user.xml.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/gps.xml
+    endif
 endif
 
 # Wifi HAL
@@ -215,12 +231,30 @@ ifdef RELEASE_SVN_LYNX
 TARGET_SVN ?= $(RELEASE_SVN_LYNX)
 else
 # Set this for older releases that don't use build flag
-TARGET_SVN ?= 45
+TARGET_SVN ?= 46
 endif
 
 PRODUCT_VENDOR_PROPERTIES += \
     ro.vendor.build.svn=$(TARGET_SVN)
 
+# Set device family property for SMR
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.build.device_family=P10C10L10
+
+# Set build properties for SMR builds
+ifeq ($(RELEASE_IS_SMR), true)
+    ifneq (,$(RELEASE_BASE_OS_LYNX))
+        PRODUCT_BASE_OS := $(RELEASE_BASE_OS_LYNX)
+    endif
+endif
+
+# Set build properties for EMR builds
+ifeq ($(RELEASE_IS_EMR), true)
+    ifneq (,$(RELEASE_BASE_OS_LYNX))
+        PRODUCT_PROPERTY_OVERRIDES += \
+        ro.build.version.emergency_base_os=$(RELEASE_BASE_OS_LYNX)
+    endif
+endif
 # Set support hide display cutout feature
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.support_hide_display_cutout=true
@@ -304,3 +338,15 @@ PRODUCT_VENDOR_PROPERTIES += \
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.quick_start.oem_id=00e0 \
     ro.quick_start.device_id=lynx
+
+# Bluetooth device id
+# Raven: 0x410B
+PRODUCT_PRODUCT_PROPERTIES += \
+    bluetooth.device_id.product_id=16651
+
+# ETM
+ifneq (,$(RELEASE_ETM_IN_USERDEBUG_ENG))
+ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
+$(call inherit-product-if-exists, device/google/common/etm/device-userdebug-modules.mk)
+endif
+endif
