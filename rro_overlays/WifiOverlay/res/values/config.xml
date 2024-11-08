@@ -157,4 +157,7 @@
     <!-- Configure the max number of new channels to add into the initial partial scan list per network.
          If equals to 0, it means there's no limit on the max number of channels to include per network.-->
     <integer translatable="false" name="config_wifiInitialPartialScanMaxNewChannelsPerNetwork">3</integer>
+
+    <!-- Boolean indicating whether to trigger bugreport for WiFi subsystem restart issue -->
+    <bool translatable="false" name ="config_wifi_subsystem_restart_bugreport_enabled">false</bool>
 </resources>
