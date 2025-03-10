@@ -4,8 +4,8 @@
     "target_path": "device/google/gs201"
   },
   {
-    "repository": "device/google/lynx-kernels/5.10",
-    "target_path": "device/google/lynx-kernels/5.10",
+    "repository": "device/google/lynx-kernels/6.1",
+    "target_path": "device/google/lynx-kernels/6.1",
     "remote": "aosp-lynx"
   }
 ]
