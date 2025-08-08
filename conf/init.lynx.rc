@@ -7,10 +7,6 @@ on init
     setprop persist.vendor.se.streset libstreset21
     setprop dalvik.vm.dexopt.thermal-cutoff 1
 
-# When ro.build.flavor=factory_lynx-userdebug, add vendor/bin/factory to default path
-on init && property:ro.build.flavor=factory_lynx-userdebug
-    export PATH /product/bin:/apex/com.android.runtime/bin:/apex/com.android.art/bin:/system_ext/bin:/system/bin:/system/xbin:/odm/bin:/vendor/bin:/vendor/xbin:/vendor/bin/factory
-
 on early-boot
     # Wait for insmod_sh to finish all common modules
     wait_for_prop vendor.common.modules.ready 1
@@ -22,13 +18,6 @@ service insmod_sh_lynx /vendor/bin/insmod.sh /vendor_dlkm/etc/init.insmod.lynx.c
     group root system
     disabled
     oneshot
-
-on boot && property:ro.build.flavor=factory_lynx-userdebug
-    # FTM log folder
-    mkdir /data/ftmlog 0775 system system
-
-    # Audio test folder
-    mkdir /data/AudioTest 0775 system system
 
 # Start the twoshay touch service
 on property:vendor.device.modules.ready=1
