@@ -19,13 +19,6 @@ TARGET_LINUX_KERNEL_VERSION := $(RELEASE_KERNEL_LYNX_VERSION)
 TARGET_KERNEL_DIR ?= $(RELEASE_KERNEL_LYNX_DIR)
 TARGET_BOARD_KERNEL_HEADERS ?= $(RELEASE_KERNEL_LYNX_DIR)/kernel-headers
 
-$(call inherit-product-if-exists, vendor/google_devices/lynx/prebuilts/device-vendor-lynx.mk)
-$(call inherit-product-if-exists, vendor/google_devices/gs201/prebuilts/device-vendor.mk)
-$(call inherit-product-if-exists, vendor/google_devices/gs201/proprietary/device-vendor.mk)
-$(call inherit-product-if-exists, vendor/google_devices/lynx/proprietary/lynx/device-vendor-lynx.mk)
-$(call inherit-product-if-exists, vendor/google_devices/lynx/proprietary/device-vendor.mk)
-$(call inherit-product-if-exists, vendor/google_devices/lynx/proprietary/WallpapersLynx.mk)
-
 DEVICE_PACKAGE_OVERLAYS += device/google/lynx/lynx/overlay
 DEVICE_PACKAGE_OVERLAYS += device/google/lynx/overlay-lineage
 
@@ -193,9 +186,6 @@ PRODUCT_VENDOR_PROPERTIES += \
 # Override Output Distortion Gain
 PRODUCT_VENDOR_PROPERTIES += \
     vendor.audio.hapticgenerator.distortion.output.gain=0.29
-
-# Trusty liboemcrypto.so
-PRODUCT_SOONG_NAMESPACES += vendor/google_devices/lynx/prebuilts
 
 # Location
 ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
