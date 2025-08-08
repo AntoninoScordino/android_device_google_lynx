@@ -1,0 +1,21 @@
+//
+// Copyright (C) 2025 The Android Open-Source Project
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+// Recovery configuration files
+prebuilt_etc {
+    name: "init.recovery.lynx.rc",
+    src: "init.recovery.lynx.rc",
+    sub_dir: "init",
+    recovery: true,
+}
+
+// Init configuration files
+prebuilt_etc {
+    name: "init.lynx.rc",
+    src: "init.lynx.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
