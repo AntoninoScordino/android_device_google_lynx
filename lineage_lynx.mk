@@ -4,8 +4,6 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-TARGET_LINUX_KERNEL_VERSION := 6.1
-
 DEVICE_USES_NO_TRUSTY := true
 USE_SWIFTSHADER := true
 BOARD_USES_SWIFTSHADER := true
@@ -37,9 +35,4 @@ TARGET_SCREEN_WIDTH := 1080
 PRODUCT_BUILD_PROP_OVERRIDES += \
     BuildDesc="lynx-user 15 BP1A.250505.005.B1 13277630 release-keys" \
     BuildFingerprint=google/lynx/lynx:15/BP1A.250505.005.B1/13277630:user/release-keys \
-    DeviceProduct=$(DEVICE_CODENAME)
-
-DEVICE_MANIFEST_FILE := \
-	device/google/lynx/manifest.xml
-
-$(call inherit-product, $(VENDOR_PATH)/$(DEVICE_CODENAME)-vendor.mk)
+    DeviceProduct=lynx

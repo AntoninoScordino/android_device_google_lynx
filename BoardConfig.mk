@@ -52,7 +52,13 @@ RELEASE_GOOGLE_PRODUCT_BOOTLOADER_DIR := bootloader/$(RELEASE_GOOGLE_BOOTLOADER_
 $(call soong_config_set,lynx_bootloader,prebuilt_dir,$(RELEASE_GOOGLE_BOOTLOADER_LYNX_DIR))
 
 # SEPolicy
-include device/google/lynx/sepolicy/lynx-sepolicy.mk
+BOARD_SEPOLICY_DIRS += \
+    $(DEVICE_PATH)/sepolicy/vendor \
+    $(DEVICE_PATH)/sepolicy/tracking_denials
+
+BOARD_VENDOR_SEPOLICY_DIRS += \
+    hardware/google/pixel-sepolicy/vibrator/common \
+    hardware/google/pixel-sepolicy/vibrator/cs40l26
 
 # Wi-Fi
 include device/google/gs201/wifi/qcom/BoardConfig-wifi.mk
