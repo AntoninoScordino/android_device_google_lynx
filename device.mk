@@ -28,10 +28,24 @@ $(call inherit-product-if-exists, vendor/google_devices/lynx/proprietary/Wallpap
 
 DEVICE_PACKAGE_OVERLAYS += device/google/lynx/lynx/overlay
 
-include device/google/lynx/audio/lynx/audio-tables.mk
 include device/google/gs201/device-shipping-common.mk
 include device/google/gs-common/touch/gti/predump_gti.mk
 include device/google/gs-common/wlan/dump.mk
+
+# Audio configuration
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/configs/audio/,$(TARGET_COPY_OUT_VENDOR)/etc)
+
+PRODUCT_COPY_FILES += \
+    frameworks/av/services/audiopolicy/config/bluetooth_with_le_audio_policy_configuration_7_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_audio_policy_configuration_7_0.xml
+
+# Speaker firmware
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/configs/audio/tuning/cs35l41/fw/,$(TARGET_COPY_OUT_VENDOR)/firmware)
+
+# Audio tuning
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/configs/audio/tuning/,$(TARGET_COPY_OUT_VENDOR)/etc/aoc)
 
 # go/lyric-soong-variables
 $(call soong_config_set,lyric,camera_hardware,lynx)
