@@ -19,7 +19,7 @@ DEVICE_CODENAME := lynx
 DEVICE_PATH := device/google/lynx
 VENDOR_PATH := vendor/google/lynx
 $(call inherit-product, device/google/gs201/aosp_common.mk)
-$(call inherit-product, $(DEVICE_PATH)/$(DEVICE_CODENAME)/device-lynx.mk)
+$(call inherit-product, $(DEVICE_PATH)/$(DEVICE_CODENAME)/device.mk)
 $(call inherit-product, device/google/gs201/lineage_common.mk)
 $(call inherit-product, $(DEVICE_PATH)/$(DEVICE_CODENAME)/device-lineage.mk)
 
