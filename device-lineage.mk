@@ -21,6 +21,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     HbmSVManagerOverlayLynx
 
+# Init
+PRODUCT_PACKAGES += \
+    init.recovery.lynx.touch.rc
+
 # IWLAN
 PRODUCT_PACKAGES += \
     Iwlan
