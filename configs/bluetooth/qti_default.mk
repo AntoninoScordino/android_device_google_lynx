@@ -38,7 +38,7 @@ PRODUCT_PRODUCT_PROPERTIES += \
 # Bluetooth HAL and Pixel extension
 DEVICE_MANIFEST_FILE += \
 	device/google/lynx/bluetooth/manifest_bluetooth.xml
-DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE += device/google/lynx/bluetooth/device_framework_matrix_product.xml
+DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE += device/google/lynx/configs/bluetooth/device_framework_matrix_product.xml
 
 BOARD_SEPOLICY_DIRS += device/google/lynx/sepolicy/bluetooth
 
@@ -74,15 +74,15 @@ PRODUCT_PACKAGES += \
 
 # Bluetooth SAR Tx power caps
 PRODUCT_COPY_FILES += \
-	device/google/lynx/bluetooth/bluetooth_power_limits_Lynx.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits.csv \
-	device/google/lynx/bluetooth/bluetooth_power_limits_Lynx_G0DZQ_EU.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_G0DZQ_EU.csv \
-	device/google/lynx/bluetooth/bluetooth_power_limits_Lynx_GHL1X_EU.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_GHL1X_EU.csv \
-	device/google/lynx/bluetooth/bluetooth_power_limits_Lynx_G0DZQ_CA.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_G0DZQ_CA.csv \
-	device/google/lynx/bluetooth/bluetooth_power_limits_Lynx_G0DZQ_US.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_G0DZQ_US.csv \
-	device/google/lynx/bluetooth/bluetooth_power_limits_Lynx_GWKK3_CA.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_GWKK3_cA.csv \
-	device/google/lynx/bluetooth/bluetooth_power_limits_Lynx_GWKK3_US.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_GWKK3_US.csv \
-	device/google/lynx/bluetooth/bluetooth_power_limits_Lynx_G0DZQ_JP.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_G0DZQ_JP.csv \
-	device/google/lynx/bluetooth/bluetooth_power_limits_Lynx_G82U8_JP.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_G82U8_JP.csv
+	device/google/lynx/configs/bluetooth/bluetooth_power_limits_Lynx.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits.csv \
+	device/google/lynx/configs/bluetooth/bluetooth_power_limits_Lynx_G0DZQ_EU.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_G0DZQ_EU.csv \
+	device/google/lynx/configs/bluetooth/bluetooth_power_limits_Lynx_GHL1X_EU.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_GHL1X_EU.csv \
+	device/google/lynx/configs/bluetooth/bluetooth_power_limits_Lynx_G0DZQ_CA.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_G0DZQ_CA.csv \
+	device/google/lynx/configs/bluetooth/bluetooth_power_limits_Lynx_G0DZQ_US.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_G0DZQ_US.csv \
+	device/google/lynx/configs/bluetooth/bluetooth_power_limits_Lynx_GWKK3_CA.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_GWKK3_cA.csv \
+	device/google/lynx/configs/bluetooth/bluetooth_power_limits_Lynx_GWKK3_US.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_GWKK3_US.csv \
+	device/google/lynx/configs/bluetooth/bluetooth_power_limits_Lynx_G0DZQ_JP.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_G0DZQ_JP.csv \
+	device/google/lynx/configs/bluetooth/bluetooth_power_limits_Lynx_G82U8_JP.csv:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_power_limits_G82U8_JP.csv
 
 # Bluetooth SAR test tools
 ifneq (,$(filter true, $(TARGET_USE_QTI_BT_SAR_V1_1) $(TARGET_USE_QTI_BT_SAR)))

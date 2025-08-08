@@ -56,7 +56,7 @@ endif
 
 # Camera
 PRODUCT_COPY_FILES += \
-	device/google/lynx/media_profiles_lynx.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
+	device/google/lynx/configs/media/media_profiles_lynx.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
 
 # Media Performance Class 13
 PRODUCT_PROPERTY_OVERRIDES += ro.odm.build.media_performance_class=33
@@ -81,8 +81,8 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.nfc.hcef.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.nfc.hcef.xml \
 	frameworks/native/data/etc/com.nxp.mifare.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.nxp.mifare.xml \
 	frameworks/native/data/etc/android.hardware.nfc.ese.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.nfc.ese.xml \
-	device/google/lynx/nfc/libnfc-hal-st.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-hal-st.conf \
-    device/google/lynx/nfc/libnfc-nci-lynx.conf:$(TARGET_COPY_OUT_PRODUCT)/etc/libnfc-nci.conf
+	device/google/lynx/configs/nfc/libnfc-hal-st.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-hal-st.conf \
+    device/google/lynx/configs/nfc/libnfc-nci-lynx.conf:$(TARGET_COPY_OUT_PRODUCT)/etc/libnfc-nci.conf
 
 PRODUCT_PACKAGES += \
 	$(RELEASE_PACKAGE_NFC_STACK) \
@@ -104,20 +104,20 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.se.omapi.ese.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.se.omapi.ese.xml \
 	frameworks/native/data/etc/android.hardware.se.omapi.uicc.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.se.omapi.uicc.xml \
-	device/google/lynx/nfc/libse-gto-hal.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libse-gto-hal.conf \
-	device/google/lynx/nfc/libse-gto-hal2.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libse-gto-hal2.conf
+	device/google/lynx/configs/nfc/libse-gto-hal.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libse-gto-hal.conf \
+	device/google/lynx/configs/nfc/libse-gto-hal2.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libse-gto-hal2.conf
 
 DEVICE_MANIFEST_FILE += \
-	device/google/lynx/nfc/manifest_se.xml
+	device/google/lynx/configs/nfc/manifest_se.xml
 
 # Thermal Config
 PRODUCT_COPY_FILES += \
-	device/google/lynx/thermal_info_config_lynx.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config.json \
-	device/google/lynx/thermal_info_config_charge_lynx.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config_charge.json
+	device/google/lynx/configs/thermal/thermal_info_config_lynx.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config.json \
+	device/google/lynx/configs/thermal/thermal_info_config_charge_lynx.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config_charge.json
 
 # Power HAL config
 PRODUCT_COPY_FILES += \
-	device/google/lynx/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
+	device/google/lynx/configs/power/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
 
 # PowerStats HAL
 PRODUCT_SOONG_NAMESPACES += \
@@ -125,7 +125,7 @@ PRODUCT_SOONG_NAMESPACES += \
     device/google/lynx
 
 # Bluetooth HAL and Pixel extension
-include device/google/lynx/bluetooth/qti_default.mk
+include device/google/lynx/configs/bluetooth/qti_default.mk
 
 # Keymaster HAL
 #LOCAL_KEYMASTER_PRODUCT_PACKAGE ?= android.hardware.keymaster@4.1-service
@@ -185,25 +185,25 @@ PRODUCT_SOONG_NAMESPACES += vendor/google_devices/lynx/prebuilts
 # Location
 ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
     PRODUCT_COPY_FILES += \
-        device/google/lynx/location/lhd.conf.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/lhd.conf \
-        device/google/lynx/location/scd.conf.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/scd.conf
+        device/google/lynx/configs/location/lhd.conf.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/lhd.conf \
+        device/google/lynx/configs/location/scd.conf.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/scd.conf
     ifneq (,$(filter 6.1, $(TARGET_LINUX_KERNEL_VERSION)))
         PRODUCT_COPY_FILES += \
-            device/google/lynx/location/gps.6.1.xml.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/gps.xml
+            device/google/lynx/configs/location/gps.6.1.xml.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/configs/location/gps.xml
     else
         PRODUCT_COPY_FILES += \
-            device/google/lynx/location/gps.xml.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/gps.xml
+            device/google/lynx/configs/location/gps.xml.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/configs/location/gps.xml
     endif
 else
     PRODUCT_COPY_FILES += \
-        device/google/lynx/location/lhd_user.conf.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/lhd.conf \
-        device/google/lynx/location/scd_user.conf.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/scd.conf
+        device/google/lynx/configs/location/lhd_user.conf.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/lhd.conf \
+        device/google/lynx/configs/location/scd_user.conf.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/scd.conf
     ifneq (,$(filter 6.1, $(TARGET_LINUX_KERNEL_VERSION)))
         PRODUCT_COPY_FILES += \
-            device/google/lynx/location/gps_user.6.1.xml.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/gps.xml
+            device/google/lynx/configs/location/gps_user.6.1.xml.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/configs/location/gps.xml
     else
         PRODUCT_COPY_FILES += \
-            device/google/lynx/location/gps_user.xml.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/gps.xml
+            device/google/lynx/configs/location/gps_user.xml.l10:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/configs/location/gps.xml
     endif
 endif
 
@@ -217,7 +217,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # WIFI COEX
 PRODUCT_COPY_FILES += \
-	device/google/lynx/wifi/coex_table.xml:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/coex_table.xml
+	device/google/lynx/configs/wifi/coex_table.xml:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/coex_table.xml
 
 # WiFi Overlay
 PRODUCT_PACKAGES += \
@@ -280,7 +280,7 @@ PRODUCT_PACKAGES += \
 
 # MIPI Coex Configs
 PRODUCT_COPY_FILES += \
-    device/google/lynx/lynx/radio/lynx_display_primary_mipi_coex_table.csv:$(TARGET_COPY_OUT_VENDOR)/etc/modem/display_primary_mipi_coex_table.csv
+    device/google/lynx/configs/radio/lynx_display_primary_mipi_coex_table.csv:$(TARGET_COPY_OUT_VENDOR)/etc/modem/display_primary_mipi_coex_table.csv
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \

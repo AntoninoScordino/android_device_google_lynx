@@ -12,6 +12,13 @@ prebuilt_etc {
     recovery: true,
 }
 
+prebuilt_etc {
+    name: "init.recovery.lynx.touch.rc",
+    src: "init.recovery.touch.rc",
+    sub_dir: "init",
+    recovery: true,
+}
+
 // Init configuration files
 prebuilt_etc {
     name: "init.lynx.rc",
