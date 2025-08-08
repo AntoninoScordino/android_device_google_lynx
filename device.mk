@@ -268,13 +268,6 @@ PRODUCT_PRODUCT_PROPERTIES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	persist.vendor.audio.cca.enabled=false
 
-# SKU specific RROs
-PRODUCT_PACKAGES += \
-    SettingsOverlayG82U8 \
-    SettingsOverlayG0DZQ \
-    SettingsOverlayGHL1X \
-    SettingsOverlayGWKK3
-
 # Enable DeviceAsWebcam support
 PRODUCT_VENDOR_PROPERTIES += \
     ro.usb.uvc.enabled=true
