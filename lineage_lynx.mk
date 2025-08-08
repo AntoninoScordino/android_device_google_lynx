@@ -5,28 +5,22 @@
 #
 
 DEVICE_USES_NO_TRUSTY := true
-USE_SWIFTSHADER := true
-BOARD_USES_SWIFTSHADER := true
 
 # Inherit some common stuff
-TARGET_DISABLE_EPPE := true
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 # Inherit device configuration
-DEVICE_CODENAME := lynx
-DEVICE_PATH := device/google/lynx
-VENDOR_PATH := vendor/google/lynx
+$(call inherit-product, device/google/lynx/device.mk)
 $(call inherit-product, device/google/gs201/aosp_common.mk)
-$(call inherit-product, $(DEVICE_PATH)/$(DEVICE_CODENAME)/device.mk)
 $(call inherit-product, device/google/gs201/lineage_common.mk)
-$(call inherit-product, $(DEVICE_PATH)/$(DEVICE_CODENAME)/device-lineage.mk)
+$(call inherit-product, device/google/gs201/device-lineage.mk)
 
 # Device identifier. This must come after all inclusions
 PRODUCT_BRAND := google
 PRODUCT_DEVICE := lynx
 PRODUCT_MANUFACTURER := Google
 PRODUCT_MODEL := Pixel 7a
-PRODUCT_NAME := lineage_$(DEVICE_CODENAME)
+PRODUCT_NAME := lineage_lynx
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 2400
