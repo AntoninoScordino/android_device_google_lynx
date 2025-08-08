@@ -14,42 +14,48 @@
 # limitations under the License.
 #
 
-TARGET_BOARD_INFO_FILE := device/google/lynx/board-info.txt
+DEVICE_PATH := device/google/lynx
+
+# Inherit from gs201
+include device/google/gs201/BoardConfig-common.mk
+
+# Audio
+BOARD_USES_GENERIC_AUDIO := true
+
+# Board information
+TARGET_BOARD_INFO_FILE := $(DEVICE_PATH)/board-info.txt
+
+# Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := lynx
 
-RELEASE_GOOGLE_PRODUCT_RADIO_DIR := $(RELEASE_GOOGLE_LYNX_RADIO_DIR)
-RELEASE_GOOGLE_BOOTLOADER_LYNX_DIR ?= pdk# Keep this for pdk TODO: b/327119000
-RELEASE_GOOGLE_PRODUCT_BOOTLOADER_DIR := bootloader/$(RELEASE_GOOGLE_BOOTLOADER_LYNX_DIR)
-$(call soong_config_set,lynx_bootloader,prebuilt_dir,$(RELEASE_GOOGLE_BOOTLOADER_LYNX_DIR))
+# Display
+TARGET_SCREEN_DENSITY := 420
 
-ifdef PHONE_CAR_BOARD_PRODUCT
-        include vendor/auto/embedded/products/$(PHONE_CAR_BOARD_PRODUCT)/BoardConfig.mk
-else
-        TARGET_SCREEN_DENSITY := 420
-endif
-
-BOARD_USES_GENERIC_AUDIO := true
-USES_DEVICE_GOOGLE_LYNX := true
-
-# Enable load module in parallel
-BOARD_BOOTCONFIG += androidboot.load_modules_parallel=true
-
-# The modules which need to be loaded in sequential
-BOARD_KERNEL_CMDLINE += fips140.load_sequential=1
-BOARD_KERNEL_CMDLINE += exynos_drm.load_sequential=1
-
-include device/google/gs201/BoardConfig-common.mk
-include device/google/gs-common/check_current_prebuilt/check_current_prebuilt.mk
-include device/google/lynx/sepolicy/lynx-sepolicy.mk
-include device/google/gs201/wifi/qcom/BoardConfig-wifi.mk
-
-DEVICE_PATH := device/google/lynx
-VENDOR_PATH := vendor/google/lynx
-
-# Kernel modules
+# Kernel
 BOARD_VENDOR_KERNEL_RAMDISK_KERNEL_MODULES_BLOCKLIST_FILE := $(DEVICE_PATH)/configs/modules.blocklist.vendor_kernel_boot
 BOARD_VENDOR_KERNEL_RAMDISK_KERNEL_MODULES_LOAD_RAW := $(strip $(shell cat $(DEVICE_PATH)/configs/modules.load.vendor_kernel_boot))
 BOARD_VENDOR_KERNEL_RAMDISK_KERNEL_MODULES_LOAD += $(BOARD_VENDOR_KERNEL_RAMDISK_KERNEL_MODULES_LOAD_RAW)
 BOARD_VENDOR_KERNEL_RAMDISK_KERNEL_MODULES += $(addprefix $(KERNEL_MODULE_DIR)/, $(notdir $(BOARD_VENDOR_KERNEL_RAMDISK_KERNEL_MODULES_LOAD_RAW)))
 
-include $(VENDOR_PATH)/BoardConfigVendor.mk
+BOARD_BOOTCONFIG += \
+    androidboot.load_modules_parallel=true
+
+BOARD_KERNEL_CMDLINE += \
+    fips140.load_sequential=1 \
+    exynos_drm.load_sequential=1
+
+# Radio
+include device/google/gs-common/check_current_prebuilt/check_current_prebuilt.mk
+RELEASE_GOOGLE_PRODUCT_RADIO_DIR := $(RELEASE_GOOGLE_LYNX_RADIO_DIR)
+RELEASE_GOOGLE_BOOTLOADER_LYNX_DIR ?= pdk
+RELEASE_GOOGLE_PRODUCT_BOOTLOADER_DIR := bootloader/$(RELEASE_GOOGLE_BOOTLOADER_LYNX_DIR)
+$(call soong_config_set,lynx_bootloader,prebuilt_dir,$(RELEASE_GOOGLE_BOOTLOADER_LYNX_DIR))
+
+# SEPolicy
+include device/google/lynx/sepolicy/lynx-sepolicy.mk
+
+# Wi-Fi
+include device/google/gs201/wifi/qcom/BoardConfig-wifi.mk
+
+# Inherit the proprietary files
+include vendor/google/lynx/BoardConfigVendor.mk
